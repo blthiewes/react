@@ -1,6 +1,5 @@
 import React from 'react';
 import './App.css';
-import { Utils } from 'handlebars';
 
 function App() {
 
@@ -11,14 +10,61 @@ function App() {
       )}
     </>
   );
+
   const PlayNumber = (props) => {
     return (
-      <button key={props.number} className='number' onClick={() => console.log('Num', props.number)}>{props.number}</button>
+      <button 
+        key={props.number} 
+        className='number' 
+        style={{backgroundColor: colors[props.status]}}
+        onClick={() => props.onClick(props.number, props.status)}>
+          {props.number}
+      </button>
     );
   };
 
   const StarMatch = () => {
     const [stars, setStars] = React.useState(utils.random(1, 9));
+    const [availableNums, setAvailableNums] = React.useState(utils.range(1, 9));
+    const [candidateNums, setCandidateNums] = React.useState([]);
+    //candidateNums
+    //wrongNums
+    //usedNums
+    //availableNums
+
+    const candidatesAreWrong = utils.sum(candidateNums) > stars;
+
+    const numberStatus = (number) => {
+      if(!availableNums.includes(number)){
+        return 'used';
+      }
+      if(candidateNums.includes(number)){
+        return candidatesAreWrong ? 'wrong' : 'candidate';
+      }
+      return 'available';
+    };
+
+    const onNumberClick = (number, currenctStatus) => {
+
+      if(currenctStatus === 'used'){
+        return;
+      }
+      const newCandidateNums = 
+        currenctStatus === 'available' 
+          ? candidateNums.concat(number)
+          : candidateNums.filter(cn => cn !== number);
+      if(utils.sum(newCandidateNums) !== stars) {
+        setCandidateNums(newCandidateNums);
+      } else {
+        const newAvailableNums = availableNums.filter(
+          n => !newCandidateNums.includes(n)
+        );
+        setStars(utils.randomSumIn(newAvailableNums, 9))
+        setAvailableNums(newAvailableNums);
+        setCandidateNums([]);
+      }
+    };
+
     return (
       <div className="game">
         <div className="help">
@@ -30,13 +76,26 @@ function App() {
           </div>
           <div className="right">
             {utils.range(1, 9).map(number =>
-              <PlayNumber key={number} number={number}/>
+              <PlayNumber 
+                key={number} 
+                number={number}
+                status={numberStatus(number)}
+                onClick={onNumberClick}
+              />
             )}
           </div>
         </div>
         <div className="timer">Time Remaining: 10</div>
       </div>
     );
+  };
+
+  const colors = {
+
+    available: 'lightgrey',
+    used: 'lightgreen',
+    wrong: 'lightcoral',
+    candidate: 'deepskyblue'
   };
 
   const utils = {
