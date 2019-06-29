@@ -1,25 +1,71 @@
 import React from 'react';
 import './App.css';
+import { Utils } from 'handlebars';
 
 function App() {
 
-  const Number = (props) => {
+  const StarsDisplay = props => (
+    <>
+    {utils.range(1, props.count).map(starId => 
+        <div key={starId} className="star" />
+      )}
+    </>
+  );
+  const PlayNumber = (props) => {
     return (
-      <button key={props.number} className='number'>{props.number}</button>
+      <button key={props.number} className='number' onClick={() => console.log('Num', props.number)}>{props.number}</button>
     );
   };
 
-  const StarMatch = () =>{
-    const range = [1,2,3,4,5,6,7,8,9];
+  const StarMatch = () => {
+    const [stars, setStars] = React.useState(utils.random(1, 9));
     return (
       <div className="game">
-        Game
-        {
-        range.map(number => 
-          <Number key={number} number={number}></Number>
-        )}
+        <div className="help">
+          Pick 1 or more numbers that sum to the number of stars
+        </div>
+        <div className="body">
+          <div className="left">
+            <StarsDisplay count={stars}/>
+          </div>
+          <div className="right">
+            {utils.range(1, 9).map(number =>
+              <PlayNumber key={number} number={number}/>
+            )}
+          </div>
+        </div>
+        <div className="timer">Time Remaining: 10</div>
       </div>
     );
+  };
+
+  const utils = {
+    // Sum an array
+    sum: arr => arr.reduce((acc, curr) => acc + curr, 0),
+  
+    // create an array of numbers between min and max (edges included)
+    range: (min, max) => Array.from({ length: max - min + 1 }, (_, i) => min + i),
+  
+    // pick a random number between min and max (edges included)
+    random: (min, max) => min + Math.floor(max * Math.random()),
+  
+    // Given an array of numbers and a max...
+    // Pick a random sum (< max) from the set of all available sums in arr
+    randomSumIn: (arr, max) => {
+      const sets = [[]];
+      const sums = [];
+      for (let i = 0; i < arr.length; i++) {
+        for (let j = 0, len = sets.length; j < len; j++) {
+          const candidateSet = sets[j].concat(arr[i]);
+          const candidateSum = utils.sum(candidateSet);
+          if (candidateSum <= max) {
+            sets.push(candidateSet);
+            sums.push(candidateSum);
+          }
+        }
+      }
+      return sums[utils.random(0, sums.length)];
+    },
   };
 
   return (
