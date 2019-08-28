@@ -1,82 +1,119 @@
-import React from 'react';
-import './App.css';
+import React from "react";
+import "./App.css";
 
 function App() {
-
   const StarsDisplay = props => (
     <>
-    {utils.range(1, props.count).map(starId => 
+      {utils.range(1, props.count).map(starId => (
         <div key={starId} className="star" />
-      )}
+      ))}
     </>
   );
 
-  const PlayNumber = (props) => {
+  const PlayNumber = props => {
     return (
-      <button 
-        key={props.number} 
-        className='number' 
-        style={{backgroundColor: colors[props.status]}}
-        onClick={() => props.onClick(props.number, props.status)}>
-          {props.number}
+      <button
+        key={props.number}
+        className="number"
+        style={{ backgroundColor: colors[props.status] }}
+        onClick={() => props.onClick(props.number, props.status)}
+      >
+        {props.number}
       </button>
     );
   };
 
-  const PlayAgain = (props) => {
-
-    return (
+  const PlayAgain = props => (
+    <div className="game-done">
+      <div
+        className="message"
+        style={{ color: props.gameStatus === "lost" ? "red" : "green" }}
+      >
+        {props.gameStatus === "lost" ? "Game Over" : "Nice"}
+      </div>
       <button onClick={() => props.onClick()}>Play Again</button>
-    );
+    </div>
+  );
 
-  };
-
-  const StarMatch = () => {
-    //state of object
+  // Custom Hook
+  const useGameState = () => {
     const [stars, setStars] = React.useState(utils.random(1, 9));
     const [availableNums, setAvailableNums] = React.useState(utils.range(1, 9));
     const [candidateNums, setCandidateNums] = React.useState([]);
+    const [secondsLeft, setSecondsLeft] = React.useState(10);
 
-    const candidatesAreWrong = utils.sum(candidateNums) > stars;
-
-    const gameIsDone = availableNums.length === 0;
-
-    const numberStatus = (number) => {
-      if(!availableNums.includes(number)){
-        return 'used';
+    React.useEffect(() => {
+      if (secondsLeft > 0 && availableNums.length > 0) {
+        const timerId = setTimeout(() => {
+          setSecondsLeft(secondsLeft - 1);
+        }, 1000);
+        return () => clearTimeout(timerId);
       }
-      if(candidateNums.includes(number)){
-        return candidatesAreWrong ? 'wrong' : 'candidate';
-      }
-      return 'available';
-    };
+    });
 
-    const onNumberClick = (number, currenctStatus) => {
-
-      if(currenctStatus === 'used'){
-        return;
-      }
-      const newCandidateNums = 
-        currenctStatus === 'available' 
-          ? candidateNums.concat(number)
-          : candidateNums.filter(cn => cn !== number);
-      if(utils.sum(newCandidateNums) !== stars) {
+    const setGameState = newCandidateNums => {
+      if (utils.sum(newCandidateNums) !== stars) {
         setCandidateNums(newCandidateNums);
       } else {
         const newAvailableNums = availableNums.filter(
           n => !newCandidateNums.includes(n)
         );
-        setStars(utils.randomSumIn(newAvailableNums, 9))
+        setStars(utils.randomSumIn(newAvailableNums, 9));
         setAvailableNums(newAvailableNums);
         setCandidateNums([]);
       }
     };
 
-    const onPlayAgainClick = () => {
-      setStars(utils.random(1, 9));
-      setAvailableNums(utils.range(1, 9));
-      setCandidateNums([]);
-  
+    return {
+      stars,
+      availableNums,
+      candidateNums,
+      secondsLeft,
+      setGameState
+    };
+  };
+
+  const Game = props => {
+    const {
+      stars,
+      availableNums,
+      candidateNums,
+      secondsLeft,
+      setGameState
+    } = useGameState();
+
+    const candidatesAreWrong = utils.sum(candidateNums) > stars;
+
+    const gameStatus =
+      availableNums.length === 0
+        ? "won"
+        : secondsLeft === 0
+        ? "lost"
+        : "active";
+
+    const numberStatus = number => {
+      if (!availableNums.includes(number)) {
+        return "used";
+      }
+      if (candidateNums.includes(number)) {
+        return candidatesAreWrong ? "wrong" : "candidate";
+      }
+      return "available";
+    };
+
+    const onNumberClick = (number, currenctStatus) => {
+      if (currenctStatus === "used") {
+        return;
+      }
+      if (gameStatus !== "active") {
+        return;
+      }
+      const newCandidateNums =
+        currenctStatus === "available"
+          ? candidateNums.concat(number)
+          : candidateNums.filter(cn => cn !== number);
+
+      setGameState(newCandidateNums);
     };
 
     return (
@@ -86,47 +123,51 @@ function App() {
         </div>
         <div className="body">
           <div className="left">
-            {gameIsDone ? (
-                <PlayAgain onClick={onPlayAgainClick}/>
-              ) : (
-                <StarsDisplay count={stars}/>
-              )
-            }
+            {gameStatus !== "active" ? (
+              <PlayAgain onClick={props.startNewGame} gameStatus={gameStatus} />
+            ) : (
+              <StarsDisplay count={stars} />
+            )}
           </div>
           <div className="right">
-            {utils.range(1, 9).map(number =>
-              <PlayNumber 
-                key={number} 
+            {utils.range(1, 9).map(number => (
+              <PlayNumber
+                key={number}
                 number={number}
                 status={numberStatus(number)}
                 onClick={onNumberClick}
               />
-            )}
+            ))}
           </div>
         </div>
-        <div className="timer">Time Remaining: 10</div>
+        <div className="timer">Time Remaining: {secondsLeft}</div>
       </div>
     );
   };
 
-  const colors = {
+  const StarMatch = () => {
+    const [gameId, setGameId] = React.useState(1);
+    return <Game key={gameId} startNewGame={() => setGameId(gameId + 1)} />;
+  };
 
-    available: 'lightgrey',
-    used: 'lightgreen',
-    wrong: 'lightcoral',
-    candidate: 'deepskyblue'
+  const colors = {
+    available: "lightgrey",
+    used: "lightgreen",
+    wrong: "lightcoral",
+    candidate: "deepskyblue"
   };
 
   const utils = {
     // Sum an array
     sum: arr => arr.reduce((acc, curr) => acc + curr, 0),
-  
+
     // create an array of numbers between min and max (edges included)
-    range: (min, max) => Array.from({ length: max - min + 1 }, (_, i) => min + i),
-  
+    range: (min, max) =>
+      Array.from({ length: max - min + 1 }, (_, i) => min + i),
+
     // pick a random number between min and max (edges included)
     random: (min, max) => min + Math.floor(max * Math.random()),
-  
+
     // Given an array of numbers and a max...
     // Pick a random sum (< max) from the set of all available sums in arr
     randomSumIn: (arr, max) => {
@@ -143,12 +184,12 @@ function App() {
         }
       }
       return sums[utils.random(0, sums.length)];
-    },
+    }
   };
 
   return (
     <div className="App">
-      <StarMatch></StarMatch>
+      <StarMatch />
     </div>
   );
 }
