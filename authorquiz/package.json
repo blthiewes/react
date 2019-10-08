@@ -4,8 +4,8 @@
   "private": true,
   "dependencies": {
     "bootstrap": "^4.3.1",
-    "react": "^16.10.1",
-    "react-dom": "^16.10.1",
+    "react": "^16.10.2",
+    "react-dom": "^16.10.2",
     "react-scripts": "3.1.2",
     "underscore": "^1.9.1"
   },
@@ -29,5 +29,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.14.0"
   }
 }
