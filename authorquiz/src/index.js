@@ -1,9 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { BrowserRouter, Route, withRouter } from "react-router-dom";
 import "./index.css";
 import AuthorQuiz from "./AuthorQuiz";
 import * as serviceWorker from "./serviceWorker";
 import { shuffle, sample } from "underscore";
+import AddAuthorForm from "./AddAuthorForm";
 
 const authors = [
   {
@@ -33,22 +35,14 @@ const authors = [
     imageUrl:
       "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Stephen_King%2C_Comicon.jpg/220px-Stephen_King%2C_Comicon.jpg",
     imageSource: "Wikimedia Commons",
-    books: [
-      "Carrie",
-      "It",
-      "The Dark Tower"
-    ]
+    books: ["Carrie", "It", "The Dark Tower"]
   },
   {
     name: "Charles Dickens",
     imageUrl:
       "https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Dickens_Gurney_head.jpg/200px-Dickens_Gurney_head.jpg",
     imageSource: "Wikimedia Commons",
-    books: [
-      "A Christmas Carol",
-      "David Copperfield ",
-      "Oliver Twist"
-    ]
+    books: ["A Christmas Carol", "David Copperfield ", "Oliver Twist"]
   }
 ];
 
@@ -66,19 +60,54 @@ function getTurnData(authors) {
   };
 }
 
-const state = {
-  turnData: getTurnData(authors),
-  highlight: ''
-};
+let state = resetState();
 
-function onAnswerSelected(answer) {
-    const isCorrect = state.turnData.author.books.some((book) => book === answer);
-    state.highlight = isCorrect ? 'correct' : 'wrong';
-    render();
+function resetState(){
+  return {
+    turnData: getTurnData(authors),
+    highlight: ""
+  };
 }
 
+function onAnswerSelected(answer) {
+  const isCorrect = state.turnData.author.books.some(book => book === answer);
+  state.highlight = isCorrect ? "correct" : "wrong";
+  render();
+}
+
+function App() {
+  return (
+    <AuthorQuiz
+      {...state}
+      highlight={state.highlight}
+      onAnswerSelected={onAnswerSelected}
+      onContinue={() => {
+        state = resetState();
+        render();
+      }}
+    />
+  );
+}
+
+const AuthorWrapper = withRouter(({ history }) => {
+  return <AddAuthorForm
+    onAddAuthor={author => {
+      authors.push(author);
+      history.push("/");
+    }}
+  />;
+});
+
 function render() {
-    ReactDOM.render(<AuthorQuiz {...state} highlight={state.highlight} onAnswerSelected={onAnswerSelected}/>, document.getElementById("root"));
+  ReactDOM.render(
+    <BrowserRouter>
+      <React.Fragment>
+        <Route exact path="/" component={App} />
+        <Route path="/add" component={AuthorWrapper} />
+      </React.Fragment>
+    </BrowserRouter>,
+    document.getElementById("root")
+  );
 }
 
 // If you want your app to work offline and load faster, you can change
