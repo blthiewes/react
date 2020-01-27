@@ -9,14 +9,6 @@
     "webpack": "webpack -wd",
     "test": "jest --watch"
   },
-  "babel": {
-    "presets": [
-      "react",
-      "env",
-      "stage-2"
-    ],
-    "test": "jest"
-  },
   "devDependencies": {
     "babel-eslint": "^10.0.3",
     "babel-jest": "^25.1.0",
