@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import DataApi from '../DataApi';
 import {data} from '../testData';
+import ArticleList from './ArticleList';
 
 const api = new DataApi(data);
 
@@ -11,8 +12,14 @@ export default class App extends Component {
       authors: api.getAuthors(),
       articles: api.getArticles(),
     };
+    console.log(this.state);
   }
   render() {
-    return <div>...</div>;
+    return (
+      <ArticleList
+        articles={this.state.articles}
+        authors={this.state.authors}
+      />
+    );
   }
 }
