@@ -9,7 +9,7 @@ class App extends Component {
   };
 
   asyncFunc = () => {
-    return Promise.resolve(37);
+    return Promise.resolve(36);
   };
 
   async componentDidMount() {
