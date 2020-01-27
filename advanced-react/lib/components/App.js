@@ -12,13 +12,15 @@ export default class App extends Component {
       authors: api.getAuthors(),
       articles: api.getArticles(),
     };
-    console.log(this.state);
   }
+  articleActions = {
+    lookupAuthor: authorId => this.state.authors[authorId],
+  };
   render() {
     return (
       <ArticleList
         articles={this.state.articles}
-        authors={this.state.authors}
+        articleActions={this.articleActions}
       />
     );
   }

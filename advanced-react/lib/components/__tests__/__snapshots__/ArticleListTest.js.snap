@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ArticleList should render correctly 1`] = `
+<div>
+  <div>
+    <div />
+    <div
+      style={
+        Object {
+          "color": "#888",
+          "fontSize": "0.85em",
+        }
+      }
+    >
+      Invalid Date
+    </div>
+    <div>
+      <a>
+         
+      </a>
+    </div>
+    <div />
+  </div>
+  <div>
+    <div />
+    <div
+      style={
+        Object {
+          "color": "#888",
+          "fontSize": "0.85em",
+        }
+      }
+    >
+      Invalid Date
+    </div>
+    <div>
+      <a>
+         
+      </a>
+    </div>
+    <div />
+  </div>
+</div>
+`;

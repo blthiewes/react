@@ -1,9 +1,15 @@
 import React from 'react';
-const styles = {};
+const styles = {
+  date: {
+    fontSize: '0.85em',
+    color: '#888',
+  },
+};
 const dateDisplay = dateString => new Date(dateString).toDateString();
 
 function Article(props) {
-  const {article, author} = props;
+  const {article} = props;
+  const author = props.actions.lookupAuthor(article.authorId);
   return (
     <div style={styles.article}>
       <div style={styles.title}>{article.title}</div>
