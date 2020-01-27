@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/local/bin/node /usr/local/Cellar/yarn/1.15.2/libexec/bin/yarn.js add @babel/loader
+  /usr/local/bin/node /usr/local/Cellar/yarn/1.15.2/libexec/bin/yarn.js add babel-present-react babel-present-env babel-present-stage-2
 
 PATH: 
   /Library/Frameworks/Python.framework/Versions/3.7/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/share/dotnet:~/.dotnet/tools:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/Library/Frameworks/Python.framework/Versions/3.7/bin
@@ -14,7 +14,7 @@ Platform:
   darwin x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/@babel%2floader: Not found
+  Error: https://registry.yarnpkg.com/babel-present-react: Not found
       at Request.params.callback [as _callback] (/usr/local/Cellar/yarn/1.15.2/libexec/lib/cli.js:66058:18)
       at Request.self.callback (/usr/local/Cellar/yarn/1.15.2/libexec/lib/cli.js:129541:22)
       at Request.emit (events.js:189:13)
@@ -34,13 +34,13 @@ npm manifest:
     "author": "Brent Thiewes",
     "license": "MIT",
     "scripts": {
-      "dev": "pm2 start lib/server.js --watch --interpreter babel-node",
+      "dev": "pm2 start lib/server.js --watch --interpreter ./node_modules/babel-cli/bin/babel-node.js",
       "webpack": "webpack -wd"
     },
     "babel": {
       "presets": [
-        "@babel/react",
-        "@babel/env"
+        "react",
+        "env"
       ]
     },
     "devDependencies": {
@@ -50,10 +50,6 @@ npm manifest:
       "webpack-cli": "^3.3.10"
     },
     "dependencies": {
-      "@babel/cli": "^7.8.3",
-      "@babel/core": "^7.8.3",
-      "@babel/preset-env": "^7.8.3",
-      "@babel/preset-react": "^7.8.3",
       "babel-cli": "^6.26.0",
       "babel-loader": "^8.0.6",
       "ejs": "^3.0.1",
@@ -1427,6 +1423,11 @@ Lockfile:
       private "^0.1.8"
       slash "^1.0.0"
       source-map "^0.5.7"
+  
+  babel-core@^7.0.0-bridge.0:
+    version "7.0.0-bridge.0"
+    resolved "https://registry.yarnpkg.com/babel-core/-/babel-core-7.0.0-bridge.0.tgz#95a492ddd90f9b4e9a4a1da14eb335b87b634ece"
+    integrity sha512-poPX9mZH/5CSanm50Q+1toVci6pv5KSRv/5TWCwtzQS5XEwn40BcCrgIeMFWP9CKKIniKXNxoIOnOq4VVlGXhg==
   
   babel-eslint@^10.0.3:
     version "10.0.3"
