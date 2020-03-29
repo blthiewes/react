@@ -134,15 +134,15 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var reac
 
 /***/ }),
 
-/***/ "./lib/components/Index.js":
-/*!*********************************!*\
-  !*** ./lib/components/Index.js ***!
-  \*********************************/
+/***/ "./lib/renderers/dom.js":
+/*!******************************!*\
+  !*** ./lib/renderers/dom.js ***!
+  \******************************/
 /*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-dom */ \"./node_modules/react-dom/index.js\");\n/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./App */ \"./lib/components/App.js\");\n//starting point for react app\n\n\n\nreact_dom__WEBPACK_IMPORTED_MODULE_0___default.a.render(react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_App__WEBPACK_IMPORTED_MODULE_2__[\"default\"], null), document.getElementById('root'));//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9saWIvY29tcG9uZW50cy9JbmRleC5qcy5qcyIsInNvdXJjZXMiOlsid2VicGFjazovLy8uL2xpYi9jb21wb25lbnRzL0luZGV4LmpzPzk2ZDIiXSwic291cmNlc0NvbnRlbnQiOlsiLy9zdGFydGluZyBwb2ludCBmb3IgcmVhY3QgYXBwXG5pbXBvcnQgUmVhY3RET00gZnJvbSAncmVhY3QtZG9tJztcbmltcG9ydCBSZWFjdCBmcm9tICdyZWFjdCc7XG5pbXBvcnQgQXBwIGZyb20gJy4vQXBwJztcblxuUmVhY3RET00ucmVuZGVyKDxBcHA+PC9BcHA+LCBkb2N1bWVudC5nZXRFbGVtZW50QnlJZCgncm9vdCcpKTtcbiJdLCJtYXBwaW5ncyI6IkFBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFDQTtBQUNBO0FBQ0E7QUFFQSIsInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///./lib/components/Index.js\n");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-dom */ \"./node_modules/react-dom/index.js\");\n/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var components_App__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! components/App */ \"./lib/components/App.js\");\n//starting point for react app\n\n\n\nreact_dom__WEBPACK_IMPORTED_MODULE_0___default.a.render(react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(components_App__WEBPACK_IMPORTED_MODULE_2__[\"default\"], null), document.getElementById('root'));//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9saWIvcmVuZGVyZXJzL2RvbS5qcy5qcyIsInNvdXJjZXMiOlsid2VicGFjazovLy8uL2xpYi9yZW5kZXJlcnMvZG9tLmpzP2I2Y2IiXSwic291cmNlc0NvbnRlbnQiOlsiLy9zdGFydGluZyBwb2ludCBmb3IgcmVhY3QgYXBwXG5pbXBvcnQgUmVhY3RET00gZnJvbSAncmVhY3QtZG9tJztcbmltcG9ydCBSZWFjdCBmcm9tICdyZWFjdCc7XG5pbXBvcnQgQXBwIGZyb20gJ2NvbXBvbmVudHMvQXBwJztcblxuUmVhY3RET00ucmVuZGVyKDxBcHA+PC9BcHA+LCBkb2N1bWVudC5nZXRFbGVtZW50QnlJZCgncm9vdCcpKTtcbiJdLCJtYXBwaW5ncyI6IkFBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFDQTtBQUNBO0FBQ0E7QUFFQSIsInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///./lib/renderers/dom.js\n");
 
 /***/ }),
 
@@ -3757,14 +3757,14 @@ eval("\n\nif (false) {} else {\n  module.exports = __webpack_require__(/*! ./cjs
 /***/ }),
 
 /***/ 0:
-/*!*******************************************************!*\
-  !*** multi @babel/polyfill ./lib/components/Index.js ***!
-  \*******************************************************/
+/*!****************************************************!*\
+  !*** multi @babel/polyfill ./lib/renderers/dom.js ***!
+  \****************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(/*! @babel/polyfill */"./node_modules/@babel/polyfill/lib/index.js");
-module.exports = __webpack_require__(/*! ./lib/components/Index.js */"./lib/components/Index.js");
+module.exports = __webpack_require__(/*! ./lib/renderers/dom.js */"./lib/renderers/dom.js");
 
 
 /***/ })

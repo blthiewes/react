@@ -1,6 +1,6 @@
 //starting point for react app
 import ReactDOM from 'react-dom';
 import React from 'react';
-import App from './App';
+import App from 'components/App';
 
 ReactDOM.render(<App></App>, document.getElementById('root'));
